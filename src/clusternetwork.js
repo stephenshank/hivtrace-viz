@@ -339,13 +339,16 @@ var hivtrace_cluster_network_graph = function(
   self.subcluster_table = null;
 
   if (self._is_CDC_) {
-    self.displayed_node_subset = [
-      _networkNodeIDField,
-      "trans_categ",
-      "race",
-      "hiv_aids_dx_dt",
-      "cur_city_name"
-    ];
+    self.displayed_node_subset =
+      options && options["node-attributes"]
+        ? options["node-attributes"]
+        : [
+            _networkNodeIDField,
+            "trans_categ",
+            "race",
+            "hiv_aids_dx_dt",
+            "cur_city_name"
+          ];
 
     self.subcluster_table =
       options && options["subcluster-table"]
@@ -1266,6 +1269,30 @@ var hivtrace_cluster_network_graph = function(
       filtered_json,
       custom_name ? custom_name(cluster_id) : "Cluster " + cluster_id,
       additional_options
+    );
+  };
+
+  self.open_priority_group_tab = function(patient_ids) {
+    const filtered_json = {},
+      patient_id_hash = _.object(
+        patient_ids,
+        Array(patient_ids.length).fill(true)
+      );
+    (filtered_json.Nodes = self.json.Nodes.filter(
+      node => patient_id_hash[node.id]
+    )),
+      (filtered_json.Edges = self.json.Edges.filter(edge => {
+        return (
+          patient_id_hash[edge.sequences[0]] &&
+          patient_id_hash[edge.sequences[1]]
+        );
+      }));
+
+    filtered_json[_networkGraphAttrbuteID] = json[_networkGraphAttrbuteID];
+    return self.open_exclusive_tab_view_aux(
+      filtered_json,
+      "Priority group",
+      {}
     );
   };
 
@@ -4255,7 +4282,9 @@ var hivtrace_cluster_network_graph = function(
         });
 
         headers[0].push({
-          value: __("clusters_tab")["scaled_number_of_genotypes_in_past_2_months"],
+          value: __("clusters_tab")[
+            "scaled_number_of_genotypes_in_past_2_months"
+          ],
           sort: "value",
           help:
             "# of cases in cluster genotyped in the last 2 months divided by the square-root of the cluster size"
@@ -5105,7 +5134,10 @@ var hivtrace_cluster_network_graph = function(
       delete the_cluster["gradient"];
     });
 
-    [["attributes", false], ["attributes_cat", true]].forEach(function(lbl) {
+    [
+      ["attributes", false],
+      ["attributes_cat", true]
+    ].forEach(function(lbl) {
       d3.select(self.get_ui_element_selector_by_role(lbl[0], lbl[1]))
         .selectAll("li")
         .selectAll("a")
@@ -5226,7 +5258,10 @@ var hivtrace_cluster_network_graph = function(
 
     self.network_svg.selectAll("radialGradient").remove();
 
-    [["attributes", false], ["attributes_cat", true]].forEach(function(lbl) {
+    [
+      ["attributes", false],
+      ["attributes_cat", true]
+    ].forEach(function(lbl) {
       d3.select(self.get_ui_element_selector_by_role(lbl[0], lbl[1]))
         .selectAll("li")
         .selectAll("a")
@@ -5686,7 +5721,7 @@ var hivtrace_cluster_network_graph = function(
       if (
         self._is_CDC_ &&
         !(options && options["no-subclusters"]) &&
-        (options && options["no-subcluster-compute"])
+        options && options["no-subcluster-compute"]
       ) {
         //// Create subcluster list from nodes data
         //_.each(self.clusters, d => {
