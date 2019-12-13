@@ -1272,28 +1272,31 @@ var hivtrace_cluster_network_graph = function(
     );
   };
 
-  self.open_priority_group_tab = function(patient_ids) {
-    const filtered_json = {},
-      patient_id_hash = _.object(
+  self.open_priority_group_tab = function(patient_ids, title) {
+    const patient_id_hash = _.object(
         patient_ids,
         Array(patient_ids.length).fill(true)
-      );
-    (filtered_json.Nodes = self.json.Nodes.filter(
-      node => patient_id_hash[node.id]
-    )),
-      (filtered_json.Edges = self.json.Edges.filter(edge => {
-        return (
-          patient_id_hash[edge.sequences[0]] &&
-          patient_id_hash[edge.sequences[1]]
-        );
-      }));
+      ),
+      priority_nodes = json["Nodes"].filter(node => patient_id_hash[node.id]),
+      subclusters = hivtrace_cluster_depthwise_traversal(
+        json["Nodes"],
+        json["Edges"],
+        null,
+        false,
+        priority_nodes
+      ),
+      subnetwork = _extract_single_cluster(_.flatten(subclusters), null, false);
 
-    filtered_json[_networkGraphAttrbuteID] = json[_networkGraphAttrbuteID];
-    return self.open_exclusive_tab_view_aux(
-      filtered_json,
-      "Priority group",
-      {}
-    );
+    if (_networkGraphAttrbuteID in json) {
+      subnetwork[_networkGraphAttrbuteID] = {};
+      jQuery.extend(
+        true,
+        subnetwork[_networkGraphAttrbuteID],
+        json[_networkGraphAttrbuteID]
+      );
+    }
+
+    return self.open_exclusive_tab_view_aux(subnetwork, title, {});
   };
 
   self.open_exclusive_tab_view_aux = function(
@@ -5721,7 +5724,8 @@ var hivtrace_cluster_network_graph = function(
       if (
         self._is_CDC_ &&
         !(options && options["no-subclusters"]) &&
-        options && options["no-subcluster-compute"]
+        options &&
+        options["no-subcluster-compute"]
       ) {
         //// Create subcluster list from nodes data
         //_.each(self.clusters, d => {
