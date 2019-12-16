@@ -1315,10 +1315,31 @@ var hivtrace_cluster_network_graph = function(
       );
     }
 
+    const export_items = [
+      [
+        "Export cluster to .CSV",
+        function(network) {
+          helpers.export_csv_button(
+            self._extract_attributes_for_nodes(
+              subnetwork.Nodes,
+              self._extract_exportable_attributes()
+            )
+          );
+        }
+      ]
+    ];
+
+    const options = {
+      extra_menu: {
+        title: "Action",
+        items: export_items
+      }
+    };
+
     const priority_group_view = self.open_exclusive_tab_view_aux(
       subnetwork,
       name,
-      {}
+      options
     );
     priority_group_view.handle_attribute_categorical("priority_status");
     return priority_group_view;
