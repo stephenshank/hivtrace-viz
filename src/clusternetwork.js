@@ -1272,8 +1272,10 @@ var hivtrace_cluster_network_graph = function(
     );
   };
 
-  self.open_priority_group_tab = function(patient_ids, title) {
-    const patient_id_hash = _.object(
+  self.open_priority_group_tab = function(priority_group_info) {
+    const { patient_ids, name, created } = priority_group_info,
+      created_date = new Date(created),
+      patient_id_hash = _.object(
         patient_ids,
         Array(patient_ids.length).fill(true)
       ),
@@ -1286,9 +1288,26 @@ var hivtrace_cluster_network_graph = function(
         priority_nodes
       ),
       subnetwork = _extract_single_cluster(_.flatten(subclusters), null, false);
+    subnetwork.Nodes.forEach(node => {
+      if (patient_id_hash[node.id])
+        node.patient_attributes.priority_status = "Original";
+      else
+        node.patient_attributes.priority_status =
+          node.patient_attributes.hiv_aids_dx_dt > created_date
+            ? "After"
+            : "Before";
+    });
 
     if (_networkGraphAttrbuteID in json) {
-      subnetwork[_networkGraphAttrbuteID] = {};
+      subnetwork[_networkGraphAttrbuteID] = {
+        priority_status: {
+          type: "String",
+          label: "Priority status",
+          raw_attribute_key: "priority_status",
+          discrete: true,
+          value_range: ["Original", "After", "Before"]
+        }
+      };
       jQuery.extend(
         true,
         subnetwork[_networkGraphAttrbuteID],
@@ -1296,7 +1315,13 @@ var hivtrace_cluster_network_graph = function(
       );
     }
 
-    return self.open_exclusive_tab_view_aux(subnetwork, title, {});
+    const priority_group_view = self.open_exclusive_tab_view_aux(
+      subnetwork,
+      name,
+      {}
+    );
+    priority_group_view.handle_attribute_categorical("priority_status");
+    return priority_group_view;
   };
 
   self.open_exclusive_tab_view_aux = function(
