@@ -1338,7 +1338,7 @@ var hivtrace_cluster_network_graph = function(
 
     const priority_group_view = self.open_exclusive_tab_view_aux(
       subnetwork,
-      name,
+      "PG - " + name,
       options
     );
     priority_group_view.handle_attribute_categorical("priority_status");
