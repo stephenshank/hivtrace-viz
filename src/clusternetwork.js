@@ -1272,7 +1272,7 @@ var hivtrace_cluster_network_graph = function(
     );
   };
 
-  self.open_priority_group_tab = function(priority_group_info) {
+  self.open_priority_group_tab = function(priority_group_info, edge_filter) {
     const { patient_ids, name, created } = priority_group_info,
       created_date = new Date(created),
       patient_id_hash = _.object(
@@ -1280,14 +1280,31 @@ var hivtrace_cluster_network_graph = function(
         Array(patient_ids.length).fill(true)
       ),
       priority_nodes = json["Nodes"].filter(node => patient_id_hash[node.id]),
+      edge_filters = [
+        null,
+        function(e) {
+          return e.length < 0.005;
+        },
+        function(e) {
+          const first_in_set = patient_id_hash[e.sequences[0]],
+            second_in_set = patient_id_hash[e.sequences[1]];
+          return first_in_set || second_in_set;
+        },
+        function(e) {
+          const first_in_set = patient_id_hash[e.sequences[0]],
+            second_in_set = patient_id_hash[e.sequences[1]];
+          return (first_in_set || second_in_set) && e.length < 0.005;
+        }
+      ],
       subclusters = hivtrace_cluster_depthwise_traversal(
         json["Nodes"],
         json["Edges"],
-        null,
+        edge_filters[edge_filter],
         false,
         priority_nodes
       ),
       subnetwork = _extract_single_cluster(_.flatten(subclusters), null, false);
+
     subnetwork.Nodes.forEach(node => {
       if (patient_id_hash[node.id])
         node.patient_attributes.priority_status = "Original";
