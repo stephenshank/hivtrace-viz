@@ -910,6 +910,7 @@
       }
 
       $(document).ready(function() {
+        $(".dropdown-toggle").dropdown();
         d3.json("./assets/mapping/outlines.json", function(error, outlines) {
           countryOutlines = outlines;
           d3.csv("./assets/mapping/country_centers.csv", function(data) {
