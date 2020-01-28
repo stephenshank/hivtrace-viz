@@ -8076,7 +8076,7 @@
         /***/
       },
 
-    /***/ "./node_modules/d3/d3.js":
+    /***/ "./node_modules/d3/d3.js?6e58":
       /*!*******************************!*\
   !*** ./node_modules/d3/d3.js ***!
   \*******************************/
@@ -21931,15 +21931,15 @@
         /***/
       },
 
-    /***/ "./node_modules/d3/d3.js-exposed":
-      /*!***************************************!*\
-  !*** ./node_modules/d3/d3.js-exposed ***!
-  \***************************************/
+    /***/ "./node_modules/d3/d3.js?fa70":
+      /*!*******************************!*\
+  !*** ./node_modules/d3/d3.js ***!
+  \*******************************/
       /*! no static exports found */
       /***/ function(module, exports, __webpack_require__) {
         /* WEBPACK VAR INJECTION */ (function(global) {
           module.exports = global["d3"] = __webpack_require__(
-            /*! -!./d3.js */ "./node_modules/d3/d3.js"
+            /*! -!./d3.js */ "./node_modules/d3/d3.js?6e58"
           );
           /* WEBPACK VAR INJECTION */
         }.call(
@@ -33926,7 +33926,7 @@
         /***/
       },
 
-    /***/ "./node_modules/jspanel4/es6module/jspanel.min.js":
+    /***/ "./node_modules/jspanel4/es6module/jspanel.min.js?5985":
       /*!********************************************************!*\
   !*** ./node_modules/jspanel4/es6module/jspanel.min.js ***!
   \********************************************************/
@@ -38319,15 +38319,15 @@
         /***/
       },
 
-    /***/ "./node_modules/jspanel4/es6module/jspanel.min.js-exposed":
-      /*!****************************************************************!*\
-  !*** ./node_modules/jspanel4/es6module/jspanel.min.js-exposed ***!
-  \****************************************************************/
+    /***/ "./node_modules/jspanel4/es6module/jspanel.min.js?d90d":
+      /*!********************************************************!*\
+  !*** ./node_modules/jspanel4/es6module/jspanel.min.js ***!
+  \********************************************************/
       /*! no static exports found */
       /***/ function(module, exports, __webpack_require__) {
         /* WEBPACK VAR INJECTION */ (function(global) {
           module.exports = global["jsPanel"] = __webpack_require__(
-            /*! -!./jspanel.min.js */ "./node_modules/jspanel4/es6module/jspanel.min.js"
+            /*! -!./jspanel.min.js */ "./node_modules/jspanel4/es6module/jspanel.min.js?5985"
           );
           /* WEBPACK VAR INJECTION */
         }.call(
@@ -43368,7 +43368,7 @@
         /***/
       },
 
-    /***/ "./node_modules/underscore/underscore.js":
+    /***/ "./node_modules/underscore/underscore.js?17fb":
       /*!***********************************************!*\
   !*** ./node_modules/underscore/underscore.js ***!
   \***********************************************/
@@ -45285,15 +45285,15 @@
         /***/
       },
 
-    /***/ "./node_modules/underscore/underscore.js-exposed":
-      /*!*******************************************************!*\
-  !*** ./node_modules/underscore/underscore.js-exposed ***!
-  \*******************************************************/
+    /***/ "./node_modules/underscore/underscore.js?3798":
+      /*!***********************************************!*\
+  !*** ./node_modules/underscore/underscore.js ***!
+  \***********************************************/
       /*! no static exports found */
       /***/ function(module, exports, __webpack_require__) {
         /* WEBPACK VAR INJECTION */ (function(global) {
           module.exports = global["_"] = __webpack_require__(
-            /*! -!./underscore.js */ "./node_modules/underscore/underscore.js"
+            /*! -!./underscore.js */ "./node_modules/underscore/underscore.js?17fb"
           );
           /* WEBPACK VAR INJECTION */
         }.call(
@@ -45376,10 +45376,10 @@
       /***/ function(module, exports, __webpack_require__) {
         /* WEBPACK VAR INJECTION */ (function($, jQuery) {
           var d3 = __webpack_require__(
-              /*! d3 */ "./node_modules/d3/d3.js-exposed"
+              /*! d3 */ "./node_modules/d3/d3.js?fa70"
             ),
             _ = __webpack_require__(
-              /*! underscore */ "./node_modules/underscore/underscore.js-exposed"
+              /*! underscore */ "./node_modules/underscore/underscore.js?3798"
             ),
             misc = __webpack_require__(/*! ./misc */ "./src/misc.js"),
             helpers = __webpack_require__(/*! ./helpers */ "./src/helpers.js"),
@@ -45390,7 +45390,7 @@
               /*! topojson */ "./node_modules/topojson/index.js"
             ),
             jsPanel = __webpack_require__(
-              /*! jspanel4 */ "./node_modules/jspanel4/es6module/jspanel.min.js-exposed"
+              /*! jspanel4 */ "./node_modules/jspanel4/es6module/jspanel.min.js?d90d"
             ).jsPanel,
             autocomplete = __webpack_require__(
               /*! autocomplete.js */ "./node_modules/autocomplete.js/index.js"
@@ -52160,6 +52160,7 @@
                           );
                         });
                       });
+                      $(".dropdown-toggle").dropdown();
                       return dropdown;
                     }
                   };
@@ -57559,7 +57560,7 @@
           /* WEBPACK VAR INJECTION */
         }.call(
           this,
-          __webpack_require__(/*! d3 */ "./node_modules/d3/d3.js-exposed"),
+          __webpack_require__(/*! d3 */ "./node_modules/d3/d3.js?fa70"),
           __webpack_require__(
             /*! jquery */ "./node_modules/jquery/dist/jquery.js-exposed"
           )
@@ -57574,11 +57575,9 @@
   \**************************/
       /*! no static exports found */
       /***/ function(module, exports, __webpack_require__) {
-        var d3 = __webpack_require__(
-            /*! d3 */ "./node_modules/d3/d3.js-exposed"
-          ),
+        var d3 = __webpack_require__(/*! d3 */ "./node_modules/d3/d3.js?fa70"),
           _ = __webpack_require__(
-            /*! underscore */ "./node_modules/underscore/underscore.js-exposed"
+            /*! underscore */ "./node_modules/underscore/underscore.js?3798"
           );
 
         function hivtrace_histogram(graph, histogram_tag, histogram_label) {
@@ -58021,12 +58020,10 @@
       /*! no static exports found */
       /***/ function(module, exports, __webpack_require__) {
         var _ = __webpack_require__(
-          /*! underscore */ "./node_modules/underscore/underscore.js-exposed"
+          /*! underscore */ "./node_modules/underscore/underscore.js?3798"
         );
 
-        var d3 = __webpack_require__(
-          /*! d3 */ "./node_modules/d3/d3.js-exposed"
-        );
+        var d3 = __webpack_require__(/*! d3 */ "./node_modules/d3/d3.js?fa70");
 
         var helpers = __webpack_require__(/*! ./helpers */ "./src/helpers.js");
 
@@ -58157,11 +58154,9 @@
   \*********************/
       /*! no static exports found */
       /***/ function(module, exports, __webpack_require__) {
-        var d3 = __webpack_require__(
-            /*! d3 */ "./node_modules/d3/d3.js-exposed"
-          ),
+        var d3 = __webpack_require__(/*! d3 */ "./node_modules/d3/d3.js?fa70"),
           _ = __webpack_require__(
-            /*! underscore */ "./node_modules/underscore/underscore.js-exposed"
+            /*! underscore */ "./node_modules/underscore/underscore.js?3798"
           ),
           helpers = __webpack_require__(/*! ./helpers.js */ "./src/helpers.js");
 
@@ -58959,9 +58954,7 @@
   \****************************/
       /*! no static exports found */
       /***/ function(module, exports, __webpack_require__) {
-        var d3 = __webpack_require__(
-          /*! d3 */ "./node_modules/d3/d3.js-exposed"
-        );
+        var d3 = __webpack_require__(/*! d3 */ "./node_modules/d3/d3.js?fa70");
 
         function hivtrace_render_scatterplot(points, w, h, id, labels, dates) {
           var _defaultFloatFormat = d3.format(",.2r");

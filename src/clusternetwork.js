@@ -5749,6 +5749,7 @@ var hivtrace_cluster_network_graph = function(
                 );
               });
             });
+            $(".dropdown-toggle").dropdown();
             return dropdown;
           }
         };
