@@ -25292,9 +25292,11 @@
                         i > 1 &&
                           toSelector(
                             // If the preceding token was a descendant combinator, insert an implicit any-element `*`
-                            tokens.slice(0, i - 1).concat({
-                              value: tokens[i - 2].type === " " ? "*" : ""
-                            })
+                            tokens
+                              .slice(0, i - 1)
+                              .concat({
+                                value: tokens[i - 2].type === " " ? "*" : ""
+                              })
                           ).replace(rtrim, "$1"),
                         matcher,
                         i < j && matcherFromTokens(tokens.slice(i, j)),
@@ -44753,8 +44755,7 @@
                     _.isFunction(bCtor) &&
                     bCtor instanceof bCtor
                   ) &&
-                  "constructor" in a &&
-                  "constructor" in b
+                  "constructor" in a && "constructor" in b
                 ) {
                   return false;
                 }
@@ -49661,44 +49662,46 @@
                   var modal = d3.select(
                     self.get_ui_element_selector_by_role("cluster_list", true)
                   );
-                  modal.selectAll(".modal-title").text(
-                    {
-                      cluster_id: "Cluster ID",
-                      visibillity: "Visibillity",
-                      list: "List",
-                      view: "View",
-                      expand: "Expand",
-                      size: "Size",
-                      genotyped_last_two_months: "# genotyped <= two months",
-                      genotyped_last_two_months_ratio:
-                        "Recently genotyped ratio",
-                      number_of_genotypes_in_past_2_months:
-                        "Genotypes past 2 mo",
-                      scaled_number_of_genotypes_in_past_2_months:
-                        "Genotypes past 2 mo scaled",
-                      group_by_attribute: "Group by attribute",
-                      group_by_id: "Group by ID",
-                      listing_nodes: "Listing nodes ",
-                      missing: "Missing"
-                    }["listing_nodes"] +
-                      (priority_list
-                        ? " in priority group " + priority_list
-                        : " " +
-                          {
-                            network: "Network",
-                            networks: "Networks",
-                            statistics: "Statistics",
-                            cluster: "Cluster",
-                            clusters: "Clusters",
-                            subclusters: "Sub-Clusters",
-                            subcluster: "Sub-Cluster",
-                            nodes: "Nodes",
-                            attributes: "Attributes",
-                            missing: "Missing"
-                          }["cluster"] +
-                          " " +
-                          cluster_id)
-                  );
+                  modal
+                    .selectAll(".modal-title")
+                    .text(
+                      {
+                        cluster_id: "Cluster ID",
+                        visibillity: "Visibillity",
+                        list: "List",
+                        view: "View",
+                        expand: "Expand",
+                        size: "Size",
+                        genotyped_last_two_months: "# genotyped <= two months",
+                        genotyped_last_two_months_ratio:
+                          "Recently genotyped ratio",
+                        number_of_genotypes_in_past_2_months:
+                          "Genotypes past 2 mo",
+                        scaled_number_of_genotypes_in_past_2_months:
+                          "Genotypes past 2 mo scaled",
+                        group_by_attribute: "Group by attribute",
+                        group_by_id: "Group by ID",
+                        listing_nodes: "Listing nodes ",
+                        missing: "Missing"
+                      }["listing_nodes"] +
+                        (priority_list
+                          ? " in priority group " + priority_list
+                          : " " +
+                            {
+                              network: "Network",
+                              networks: "Networks",
+                              statistics: "Statistics",
+                              cluster: "Cluster",
+                              clusters: "Clusters",
+                              subclusters: "Sub-Clusters",
+                              subcluster: "Sub-Cluster",
+                              nodes: "Nodes",
+                              attributes: "Attributes",
+                              missing: "Missing"
+                            }["cluster"] +
+                            " " +
+                            cluster_id)
+                    );
                   var view_toggle = $(
                     self.get_ui_element_selector_by_role(
                       "cluster_list_view_toggle",
